@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    font-family: "Lexend", "serif", "sans-serif";
+    text-decoration: none;
+    outline: none;
+    scroll-behavior: smooth;
+}
+
+:root{
+    --bg-color: #fff;
+    --snd-bg-color: #d5fdf9;
+    --text-color: #000;
+    --main-color: #007f73;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
+.header{
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--main-color);
+    padding: 15px 50px;
+    transition: all 0.5s ease;
+}
+
+.logo{
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--bg-color);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.logo:hover{
+    transform: scale(1.15);
+}
+
+.navbar a{
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--bg-color);
+    margin-left: 30px;
+    transition: 0.3s ease;
+}
+
+.navbar a:hover,
+.navbar a:active{
+    color: var(--text-color);
+}
+
+#menu-icon{
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--bg-color);
+    cursor: pointer;
+    display: none;
+}
