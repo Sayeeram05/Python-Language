@@ -47,10 +47,10 @@ html{
 }
 
 .navbar a{
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 500;
     color: var(--bg-color);
-    margin-left: 30px;
+    margin-left: 50px;
     transition: 0.3s ease;
 }
 
@@ -65,4 +65,22 @@ html{
     color: var(--bg-color);
     cursor: pointer;
     display: none;
+}
+
+/* Home selection code */
+
+.home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-profile img{
+    display:inline-block;
+    width: 350px;
+    border-radius: 50%;
+    box-shadow: 0 0 35px var(--main-color);
+    cursor: pointer;
+    animation: floatImage 4s ease-in-out infinite;
+    transition: 0.4s ease;
 }
