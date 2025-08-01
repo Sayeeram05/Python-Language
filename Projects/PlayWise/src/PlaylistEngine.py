@@ -3,7 +3,7 @@ class Node:
         self.Prev = None
         self.Data = Data
         self.Next = None
-    
+        
 class PlaylistEngine:
     def __init__(self):
         self.Head = self.Tail = None
@@ -106,7 +106,8 @@ class PlaylistEngine:
                 FromNode.Prev = Temp.Prev
                 Temp.Prev = FromNode
                 
-            self.Length += 1                        
+            self.Length += 1   
+                         
     def reverse_playlist(self):
         if self.isempty():
             return -1
@@ -117,6 +118,8 @@ class PlaylistEngine:
                 Temp.Prev,Temp.Next = Temp.Next,Temp.Prev
                 Temp = NextNode
             self.Head,self.Tail = self.Tail,self.Head
+    
+    
 
 if __name__ == "__main__":
     P1 = PlaylistEngine()
