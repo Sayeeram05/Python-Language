@@ -1,7 +1,7 @@
 class Node:
-    def __init__(self,Data):
+    def __init__(self,ID,Tile,Artist,Duration):
         self.Prev = None
-        self.Data = Data
+        self.ID,self.Tile,self.Artist,self.Duration = ID,Tile,Artist,Duration
         self.Next = None
         
 class PlaylistEngine:
@@ -16,19 +16,18 @@ class PlaylistEngine:
         print("F : ",end="")
         Temp = self.Head
         while(Temp != None):
-            print(Temp.Data,end=" ")
+            print(Temp.ID,Temp.Tile,Temp.Artist,Temp.Duration,end=" ")
             Temp = Temp.Next
         
         print("\nB : ",end="")
         Temp = self.Tail
         while(Temp != None):
-            print(Temp.Data,end=" ")
+            print(Temp.ID,Temp.Tile,Temp.Artist,Temp.Duration,end=" ")
             Temp = Temp.Prev
         print()
-        
-        
-    def add_song(self,Data):
-        NewNode = Node(Data)
+         
+    def add_song(self,ID,Tile,Artist,Duration):
+        NewNode = Node(ID,Tile,Artist,Duration)
         if self.isempty():
             self.Head = self.Tail = NewNode
         else:
@@ -37,7 +36,6 @@ class PlaylistEngine:
             self.Tail = NewNode
         self.Length += 1
         
-
     def delete_song(self,index):
         if self.isempty() or index >= self.Length or index < 0:
             return False
@@ -73,8 +71,6 @@ class PlaylistEngine:
         self.Length -= 1
         Temp.Next = Temp.Prev = None
         return Temp
-    
-    
             
     def move_song(self,from_index,to_index):
         if(from_index == to_index or self.isempty() or from_index < 0 or from_index >= self.Length or to_index < 0 or to_index >= self.Length):
@@ -100,7 +96,7 @@ class PlaylistEngine:
                     Temp = self.Tail
                     for _ in range(self.Length - 1 - to_index):
                         Temp = Temp.Prev
-                print(Temp.Data,Temp.Prev.Data)
+                print(Temp.ID,Temp.Tile,Temp.Artist,Temp.Duration,Temp.Prev,Temp.ID,Temp.Tile,Temp.Artist,Temp.Duration)
                 Temp.Prev.Next = FromNode
                 FromNode.Next = Temp
                 FromNode.Prev = Temp.Prev
@@ -118,7 +114,6 @@ class PlaylistEngine:
                 Temp.Prev,Temp.Next = Temp.Next,Temp.Prev
                 Temp = NextNode
             self.Head,self.Tail = self.Tail,self.Head
-    
     
 
 if __name__ == "__main__":
