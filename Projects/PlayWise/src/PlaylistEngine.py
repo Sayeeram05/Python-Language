@@ -1,7 +1,7 @@
 class Node:
-    def __init__(self,ID,Tile,Artist,Duration):
+    def __init__(self,ID,Title,Artist,Duration):
         self.Prev = None
-        self.ID,self.Tile,self.Artist,self.Duration = ID,Tile,Artist,Duration
+        self.ID,self.Title,self.Artist,self.Duration = ID,Title,Artist,Duration
         self.Next = None
         
 class PlaylistEngine:
@@ -13,21 +13,25 @@ class PlaylistEngine:
         return self.Head is None
     
     def Traversal(self):
-        print("F : ",end="")
-        Temp = self.Head
-        while(Temp != None):
-            print(Temp.ID,Temp.Tile,Temp.Artist,Temp.Duration,end=" ")
-            Temp = Temp.Next
+        if(self.isempty()):
+            print("\t No Songs")
+        else:
+            Temp = self.Head
+            SNo = 1
+            while(Temp != None):
+                print(f"\t{SNo}. Title:{Temp.Title}   Artist:{Temp.Artist}  Duration:{Temp.Duration}")
+                Temp = Temp.Next
+                SNo += 1
+        print("\n\n")
+        # print("\nB : ",end="")
+        # Temp = self.Tail
+        # while(Temp != None):
+        #     print(Temp.ID,Temp.Title,Temp.Artist,Temp.Duration,end=" ")
+        #     Temp = Temp.Prev
         
-        print("\nB : ",end="")
-        Temp = self.Tail
-        while(Temp != None):
-            print(Temp.ID,Temp.Tile,Temp.Artist,Temp.Duration,end=" ")
-            Temp = Temp.Prev
-        print()
          
-    def add_song(self,ID,Tile,Artist,Duration):
-        NewNode = Node(ID,Tile,Artist,Duration)
+    def add_song(self,ID,Title,Artist,Duration):
+        NewNode = Node(ID,Title,Artist,Duration)
         if self.isempty():
             self.Head = self.Tail = NewNode
         else:
@@ -38,6 +42,7 @@ class PlaylistEngine:
         
     def delete_song(self,index):
         if self.isempty() or index >= self.Length or index < 0:
+            print(f"\n\nIndex : {index+1} => Invalid Index")
             return False
         
         elif(self.Head == self.Tail):
@@ -74,7 +79,7 @@ class PlaylistEngine:
             
     def move_song(self,from_index,to_index):
         if(from_index == to_index or self.isempty() or from_index < 0 or from_index >= self.Length or to_index < 0 or to_index >= self.Length):
-            return -1
+            print(f"Move Song : {from_index} To {to_index}   => Invalid Index")
         else:
             FromNode = self.delete_song(from_index)
             if(to_index == 0):
@@ -87,22 +92,23 @@ class PlaylistEngine:
                 self.Tail = FromNode
             else:
                 if(to_index < self.Length // 2):
-                    print("H")
+                    # print("H")
                     Temp = self.Head
                     for _ in range(to_index):
                         Temp = Temp.Next
                 else:
-                    print("T")
+                    # print("T")
                     Temp = self.Tail
                     for _ in range(self.Length - 1 - to_index):
                         Temp = Temp.Prev
-                print(Temp.ID,Temp.Tile,Temp.Artist,Temp.Duration,Temp.Prev,Temp.ID,Temp.Tile,Temp.Artist,Temp.Duration)
+                # print(Temp.ID,Temp.Title,Temp.Artist,Temp.Duration,Temp.Prev,Temp.ID,Temp.Title,Temp.Artist,Temp.Duration)
                 Temp.Prev.Next = FromNode
                 FromNode.Next = Temp
                 FromNode.Prev = Temp.Prev
                 Temp.Prev = FromNode
                 
-            self.Length += 1   
+            self.Length += 1 
+            print(f"Move Song : {from_index} To {to_index}   => Sucessfully Moved") 
                          
     def reverse_playlist(self):
         if self.isempty():
