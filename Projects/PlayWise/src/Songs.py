@@ -1,4 +1,6 @@
 import json
+import os
+import time
 from colorama import init, Fore, Back, Style
 
 class Songs:
@@ -57,6 +59,18 @@ class Songs:
         with open("src/Songs.json","w") as file:
             json.dump([self.SongsDetails,self.SongsData],file,indent=3)
     
+    def DeleteSong(self,ID):
+        for Song,index in enumerate(self.SongsData):
+            if(ID == Song["id"]):
+                self.SongsData.pop(index)
+                print(f"Song : ID-{ID}  => Deleted")
+                with open("src/Songs.json","w") as file:
+                    json.dump([self.SongsDetails,self.SongsData],file,indent=3)
+                break
+        else:
+            print(f"Song : ID-{ID}  => Invalid")
+                
+    
     def export_snapshot(self):  
         with open("src/Songs.json","r") as D:
             Data = json.load(D)
@@ -89,6 +103,39 @@ class Songs:
         for i in range(rows):
             print("    ",end="")
             print(f"{longest_songs[i]:<{column_width}}{recent_songs[i]:<{column_width}}{ratings[i]:<{column_width}}")
+        
+        
+    def SongPage(self):
+        while(True):
+            print("\n\nSongs")
+            print("\t1. Add Song")
+            print("\t2. Delete Song")
+            print("\t3. Go To DashBoard")
+            
+            Option = input("Selected Option: ")
+            
+            if(Option == "1"):
+                print("\n\nAdd Song\n")
+                Title = input("Title : ")
+                Artist = input("Artist : ")
+                Duration = input("Duration : ")
+                
+                self.Addsong(Title,Artist,Duration)
+                
+                print(f"Song : Title-{Title}  => Sucessfully Added")
+            elif(Option == "2"):
+                print("\n\nDelete Song\n")
+                ID = input("ID : ")
+                self.DeleteSong(ID)
+            
+            elif(Option == "3"):
+                print("\n\nMoving Back To Dashboard\n")
+                break
+            else:
+                print("\n\nSelected Option : Invalid\n\n")
+            
+            time.sleep(2)
+            os.system("cls")
 
 
         

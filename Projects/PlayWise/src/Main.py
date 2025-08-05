@@ -1,76 +1,70 @@
-from Library import Library as Lib
-from Songs import Songs as Sng
+import json
+import os
+import time
+from Library import Library
+from Songs import Songs
+from PlayBack import PlayBack
+from colorama import init, Fore, Back, Style
+from Dashboard import Dashboard
 
 class Main:
     def __init__(self):
-        self.Library = Lib()
-        self.Songs = Sng()
-    
-    def OpenPlaylist(self):
-        name = input("Name : ")
-        if(name in self.Library.LibrarList):
-            while True:
-                print("""
-                    Select : 
-                        1. Add Song
-                        2. Delete Song
-                        3. View Songs
-                        4. Move Song
-                        5. Play Song
-                        
-                    """)
-                option = input("Enter : ").strip()
-                if(option == "1"):
-                    Data = self.Songs.get()
-                    print(Data)
-                    self.Library.LibrarList[name].add_song(Data["id"],Data["title"],Data["artist"],Data["duration"])
-                elif(option == "2"):
-                    Position = int(input("Position : "))
-                    self.Library.LibrarList[name].delete_song(Position-1)
-                elif(option == "3"):
-                    self.Library.LibrarList[name].Traversal()
-                elif(option == "4"):
-                    From = int(input("From : "))
-                    To = int(input("To : "))
-                    self.Library.LibrarList[name].move_song(From,To)
-                else:
-                    break
-        else:
-            print(False)
+        self.Songs = Songs()
+        init(autoreset=True)
+        self.PlayBack = PlayBack()
+        self.Dashboard = Dashboard()
+        self.Library = Library()
+        
+    def Exit(self):
+        os.system("cls")
+                
+        print("="*140)
+        print(Style.BRIGHT + Fore.WHITE + Back.BLUE + "Let's Meet Again".center(140," "))
+        print("="*140)
+
+        time.sleep(2)
+        
+        
     
     def Start(self):
-        while True:
-            print('''
-                    Select :
-                        1. View Library
-                        2. Create Playlist
-                        3. Delete Playlist
-                        4. Open Playlist
-                        5. Exit
-                ''')
-            option = input("Enter : ").strip()
-
-            if option == "1":
-                self.Library.ViewLibrary()
-
-            elif option == "2":
-                name = input("Name : ")
-                self.Library.AddPlaylist(name)
-
-            elif option == "3":
-                name = input("Name : ")
-                self.Library.DeletePlaylist(name)
-
-            elif option == "4":
-                self.OpenPlaylist()
-
-            elif option == "5":
-                print("Exiting program.")
+        while(True):
+            self.Songs.export_snapshot()
+            print("\n\nDashBoard") 
+            print("\t1. Library")
+            print("\t2. Play Song")
+            print("\t3. Rating")
+            print("\t4. Songs")
+            print("\t5. Exit")
+            Option = input("\nSelected Option : ")
+            
+            time.sleep(1)
+            os.system("cls")
+            
+            if(Option == "1"):
+                self.Dashboard.LibraryPage()
+            elif(Option == "2"):
+                self.Library.PlayPlaylist()
+            elif(Option == "3"):
+                pass
+            elif(Option == "4"):
+                self.Songs.SongPage()
+                pass
+            elif(Option == "5"):
+                self.Exit()
                 break
-
             else:
-                print("Invalid option. Please choose 1 to 5.")
-    
+                print("\n\nInvalid Option\n\n")
+                
+            time.sleep(2)
+            os.system("cls")
+        
+        
+        
+        
+        
 if __name__ == "__main__":
+
     User = Main()
+    
     User.Start()
+    

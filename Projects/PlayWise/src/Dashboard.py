@@ -4,15 +4,13 @@ from Songs import Songs
 from Library import Library as Lib
 from colorama import init, Fore, Back, Style
 
-class Home:
+class Dashboard:
     def __init__(self):
         os.system("cls")
         init(autoreset=True)
         
         self.Songs = Songs()
         self.Library = Lib()
-        
-        self.HomePage()
     
         
     def ModifyPlaylist(self,name=None):
@@ -20,12 +18,13 @@ class Home:
             name = input("\nName : ")
         if(name in self.Library.LibrarList):
             while True:
-                print(f"PlayList : {name}")
+                os.system("cls")
+                print(f"\n\nPlayList : {name}")
                 print("\t1. Add Song")
                 print("\t2. Delete Song")
                 print("\t3. View Songs")
                 print("\t4. Move Song")
-                print("\t5. Go To Home")
+                print("\t5. Go To Dashboard")
                 
                 option = input("\nEnter : ").strip()
                 if(option == "1"):
@@ -50,7 +49,7 @@ class Home:
                     To = int(input("To : "))
                     self.Library.LibrarList[name].move_song(From,To)
                 elif(option == "5"):
-                    print("\n\n Moving To HomePage\n\n")
+                    print("\n\n Moving To DashboardPage\n\n")
                     time.sleep(1)
                     os.system("cls")
                     break
@@ -64,17 +63,15 @@ class Home:
             os.system("cls")
             
     
-    def HomePage(self):
+    def LibraryPage(self):
         while(True):
-            self.Songs.export_snapshot()
-            print("\n")
-            print("Select : ")
+            
+            print("\n\nLibrary")
             print("\t1. Create Playlist")
             print("\t2. View All Playlist")
             print("\t3. Delete Playlist")
             print("\t4. Modify Playlist")
-            print("\t5. Play Playlist")
-            print("\t6. Exit")
+            print("\t5. Exit")
             
             Option = int(input("\nOption : "))
             
@@ -98,25 +95,12 @@ class Home:
                 self.ModifyPlaylist(name)
 
             elif(Option == 5):
-                print("\nPlay Playlist")
-                name = input("\nName : ")
-                self.Library.PlayPlaylist(name)
-                
-            elif(Option == 6):
-                os.system("cls")
-                
-                print("="*140)
-                print(Style.BRIGHT + Fore.WHITE + Back.BLUE + "Let's Meet Again".center(140," "))
-                print("="*140)
-
-                time.sleep(2)
-                break
+                pass
                 
                 
             else:
                 pass     
             
 
-Home()
     
     

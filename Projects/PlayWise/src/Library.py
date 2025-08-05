@@ -4,6 +4,7 @@ from PlaylistEngine import PlaylistEngine
 import os
 from colorama import init, Back, Style
 from PlayBack import PlayBack
+from Songs import Songs
 
 
 class Library(PlaylistEngine):
@@ -11,6 +12,7 @@ class Library(PlaylistEngine):
         self.LibrarList = dict()
         init(autoreset=True)
         self.PlayBack = PlayBack()
+        self.Songs = Songs()
     
     def ViewLibrary(self):
         print("\n\nLibrary : ",end="")
@@ -50,7 +52,9 @@ class Library(PlaylistEngine):
         time.sleep(2)
         os.system("cls")
     
-    def PlayPlaylist(self,Name):
+    def PlayPlaylist(self):
+        print("\n\nPlay Playlist")
+        Name = input("\nName : ")
         if(Name not in self.LibrarList):
             print(f"\n\nPlaylist : {Name} => Not Found in Library")
             print("\n\n")
@@ -101,7 +105,7 @@ class Library(PlaylistEngine):
                             Temp = Temp.Prev
                             print("\n\n Playing Previous Song\n\n")
                             
-                    elif(Option == 3):
+                    elif(Option == 3): 
                         self.LibrarList[Name].add_song(Temp.ID,Temp.Title,Temp.Artist,Temp.Duration)
                         if(Temp.Next is None):
                             print(f"\n\nPlayList {Name} : Played\n\n")
